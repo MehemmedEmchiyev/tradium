@@ -1,0 +1,13 @@
+import { createRoot } from 'react-dom/client'
+import App from './App.jsx'
+import { BrowserRouter } from "react-router";
+import Router from './routing/Router.jsx';
+import { store } from './store/store.js'
+import { Provider } from 'react-redux'
+createRoot(document.getElementById('root')).render(
+    <Provider store={store}>
+        <BrowserRouter>
+            <Router />
+        </BrowserRouter>
+    </Provider>
+)
