@@ -5,6 +5,8 @@ function Depatments() {
         {name: 'Beauty' , img : 'depar3.jpg'},
         {name: 'Home' , img : 'depar4.jpg'}
     ]
+    const path = process.env.PUBLIC_URL + '/images/'
+
     return (
     <div className='py-5'>
         <div className='flex items-center'>
@@ -18,7 +20,7 @@ function Depatments() {
             {
                 depatments.map((item,index) => {
                     return <div key={index} className="cursor-pointer relative group overflow-hidden duration-500">
-                        <img className="w-full h-full group-hover:scale-[1.1] duration-500" src={`/public/images/${item.img}`} alt="" />
+                        <img className="w-full h-full group-hover:scale-[1.1] duration-500" src={path + item.img} alt="" />
                         <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,.4)]"></div>
                         <h2 className=" absolute text-white z-10 top-[50%] transform translate-[-50%] left-[50%] text-3xl font-semibold">{item.name}</h2>
                     </div>

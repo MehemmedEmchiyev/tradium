@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 
 function SliderItems() {
+      const path = process.env.PUBLIC_URL + '/images/'
   const settings = {
     speed: 500,
     slidesToShow: 5,
@@ -40,7 +41,7 @@ function SliderItems() {
         {images.map((img, index) => (
           <div key={index} className="px-2 border-0 outline-0">
             <img
-              src={`/public/images/footer${index + 1 }.jpg`}
+              src={path + `footer${index + 1 }.jpg`}
               alt={`slider-img-${index}`}
               className="w-full h-auto object-cover border-0 outline-0"
             />
