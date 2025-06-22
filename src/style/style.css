@@ -1,11 +1,22 @@
 @import "tailwindcss";
+@theme {--color-border-color: #E1E3E7}
 ::-webkit-scrollbar {
   width: 5px;
   height: 2px;
 }
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
+::-webkit-scrollbar-track {background: #f1f1f1;}
+::-webkit-scrollbar-thumb {background: #A7A7A7;}
+.btn::after{
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 100%;
+  background-color: white;
+  top: 0;
+  left: 0;
+  transition: all 0.5s;
+  z-index: -1;
+  color: black;
 }
-::-webkit-scrollbar-thumb {
-  background: #A7A7A7;
-}
+.btn:hover::after{width: 100%;}
+@media screen and (max-width: 768px) {.btn::after{width: 0;}}

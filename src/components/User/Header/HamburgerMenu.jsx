@@ -9,7 +9,8 @@ function HamburgerMenu() {
   const { statue } = useSelector(store => store.hamMenuStatue)
    useEffect(() => {
       const getCategory = async () => {
-        const data = await getAllCategory()
+        const response = await getAllCategory()
+        const data = await response.json()
         setCategories(data)
       }
       getCategory()

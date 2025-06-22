@@ -13,13 +13,14 @@ import HamburgerMenu from "./HamburgerMenu";
 import { changeStatue } from "../../../store/hamMenuSlice";
 import Search from "./Search";
 import { changeSearchStatue } from "../../../store/searchSlice";
+import { Box, Skeleton } from "@mui/material";
+import { setOpen } from "../../../store/basketSlice";
+import Basket from "./Basket";
 
 function Header() {
   const dispatch = useDispatch()
   const { statue } = useSelector(store => store.hamMenuStatue)
-  const {searchStatue} = useSelector(store => store.searchStatue)
-  console.log(searchStatue);
-  
+  const [categoryStatus , setCategoryStatue ] = useState(false)
   const [menuStatue , setMenuStatue] = useState(false)
   const [categories , setCategories] = useState([])
   const [subCategories , setSubCategories] = useState(1)
@@ -31,9 +32,13 @@ function Header() {
     'https://tradium.ibradev.me/img/fragrance.jpg',
     'https://tradium.ibradev.me/img/2-235-bedroom.jpg'
   ]
+  const handleOpen = () => dispatch(setOpen());
+
   useEffect(() => {
     const getCategory = async () => {
-      const data = await getAllCategory()
+      const response = await getAllCategory()
+      if(response.ok) setCategoryStatue(true)
+      const data = await response.json()
       setCategories(data)
     }
     getCategory()
@@ -44,10 +49,17 @@ function Header() {
       <Search />
       <section className="flex items-center justify-between">
           <nav className="hidden lg:block w-1/3">
-            <menu className="" onMouseEnter={() => setMenuStatue(true) } onMouseLeave={() => setMenuStatue(false)}>
+            <menu className="w-max"  onMouseEnter={() => {categoryStatus && setMenuStatue(true)} } onMouseLeave={() => {categoryStatus && setMenuStatue(false)}}>
                 <ul className="flex items-center">
                   {
+                    categoryStatus ?
                     categories?.map((item,index) => <li key={index} onMouseEnter={() => getSubCategories(item.id)} className="py-1 px-2 ml-[2px] text-nowrap mb-1 cursor-pointer rounded-[3px] hover:bg-[#e4e4e4]">{item.name}</li>)
+                    :
+                    <Box sx={{ width: 300 , display : "flex" , gap : '12px'}}>
+                      <Skeleton sx={{width : '100%'}}/>
+                      <Skeleton sx={{width : '100%'}}/>
+                      <Skeleton sx={{width : '100%'}}/>
+                    </Box>
                   }
                 </ul>
                 {
@@ -70,7 +82,7 @@ function Header() {
           </nav>
           <div className="flex lg:hidden cursor-pointer items-center gap-3 text-2xl w-1/3">
             {!statue ? <FaBars onClick={() => dispatch(changeStatue())}/> : <IoMdClose onClick={() => dispatch(changeStatue())}/>}
-            <IoIosSearch className="text-black" />
+            <IoIosSearch onClick={() => dispatch(changeSearchStatue())} className="text-black" />
           </div>
           <div className="w-1/3 h-[40px] flex items-center justify-center">
             <Link to='/'>
@@ -80,7 +92,8 @@ function Header() {
           <div className="flex items-center gap-3 w-1/3 justify-end">
             <CiUser  className="hidden lg:inline text-2xl cursor-pointer"/>
             <CiHeart className="text-2xl cursor-pointer" />
-            <TbBriefcase2 className="text-2xl cursor-pointer"/>
+            <TbBriefcase2 onClick={handleOpen} className="text-2xl cursor-pointer"/>
+            <Basket />
           </div>
       </section>
       <HamburgerMenu />
