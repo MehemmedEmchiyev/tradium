@@ -1,7 +1,8 @@
 
 
 function Hero() {
-    const path = process.env.PUBLIC_URL + '/images/'
+    const path = '/images/'
+
   return (
     <div className='relative w-full md:h-[80vh] overflow-hidden group h-[60vh] '> 
         <img src={path + "heroimg.jpg"} className=' object-cover w-full md:object-left-top md:w-full h-full transform  transition-transform duration-500 group-hover:scale-110' alt="" />

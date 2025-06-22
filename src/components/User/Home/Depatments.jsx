@@ -5,7 +5,8 @@ function Depatments() {
         {name: 'Beauty' , img : 'depar3.jpg'},
         {name: 'Home' , img : 'depar4.jpg'}
     ]
-    const path = process.env.PUBLIC_URL + '/images/'
+    const path = '/images/'
+
 
     return (
     <div className='py-5'>

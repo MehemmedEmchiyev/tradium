@@ -8,7 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 
 function SliderItems() {
-      const path = process.env.PUBLIC_URL + '/images/'
+      const path = '/images/'
+
   const settings = {
     speed: 500,
     slidesToShow: 5,
