@@ -33,13 +33,17 @@ function Search() {
         setIdx(index)
         setSelectedCat(id)
     }
+    const handleClose = () => {
+        dispatch(changeSearchStatue())
+        setValue('')
+    }
     return (
     <div className={`shadow-2xl px-5 flex-col z-500  gap-3 items-center justify-center w-full py-5 bg-white left-0 flex duration-300 fixed ${searchStatue ? 'top-0' : "top-[-500px]"}`}>
         <div className='w-full flex items-start justify-between'>
             <div></div>
             <img src={logo} className='w-[150px] h-[40px] object-contain' alt="" />
             <div>
-                <IoMdClose onClick={() => dispatch(changeSearchStatue())} className='cursor-pointer text-2xl'/>
+                <IoMdClose onClick={handleClose} className='cursor-pointer text-2xl'/>
             </div>
         </div>
         <div className='h-11 w-full md:w-160 border-1 border-[#E5E7EB] p-5 flex justify-between items-center'>
