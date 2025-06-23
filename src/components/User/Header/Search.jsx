@@ -47,7 +47,7 @@ function Search() {
             </div>
         </div>
         <div className='h-11 w-full md:w-160 border-1 border-[#E5E7EB] p-5 flex justify-between items-center'>
-            <input className='outline-0 border-0 w-full' type='text' onChange={e => setValue(e.target.value)} placeholder="Search..." />
+            <input className='outline-0 border-0 w-full' type='text' value={value} onChange={e => setValue(e.target.value)} placeholder="Search..." />
             <IoIosSearch className='text-2xl'/>
         </div>
         <div className='w-full md:w-160 '>
