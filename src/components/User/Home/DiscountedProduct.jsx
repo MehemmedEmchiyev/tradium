@@ -2,9 +2,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Card from "../../Card";
-import { useEffect, useState } from "react";
-import { getAllProduct } from "../../../services/service";
 import Loader from "../../Loader";
+import { useGetAllProductsQuery } from "../../../store/tradiumApi";
 
 function DiscountedProduct() {
     const settings = {
@@ -31,14 +30,7 @@ function DiscountedProduct() {
       }
     ]
     }
-    const [products , setProducts] = useState([])
-    useEffect(() => {
-        const getProducts = async () => {
-            const response = await getAllProduct()
-            setProducts(response.data)
-        } 
-        getProducts()
-    },[])
+    const {data , isLoading} = useGetAllProductsQuery()
   return (
     <div className="w-full">
         <div className="mb-10 font-['Cormorant_Garamond',_serif]">
@@ -48,9 +40,9 @@ function DiscountedProduct() {
             </h2>
         </div>
       {
-        products.length ? <Slider {...settings}>
+        !isLoading ? <Slider {...settings}>
         {
-            products?.filter(item => item.discount >= 10).map((item,index) => <Card key={index} slider='true' item ={item} />)   
+            data?.data.filter(item => item.discount >= 10).map((item,index) => <Card key={index} slider='true' item ={item} />)   
         }
       </Slider> : <Loader />
       }

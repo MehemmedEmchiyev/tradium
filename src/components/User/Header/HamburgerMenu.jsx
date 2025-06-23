@@ -1,21 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { getAllCategory } from '../../../services/service'
+import { useGetAllCategoriesQuery } from '../../../store/tradiumApi'
 
 function HamburgerMenu() {
   const [categories , setCategories] = useState([])
   const [subCategories , setSubCategories] = useState({})
-
+  const {data } = useGetAllCategoriesQuery()
   const { statue } = useSelector(store => store.hamMenuStatue)
-   useEffect(() => {
-      const getCategory = async () => {
-        const response = await getAllCategory()
-        const data = await response.json()
-        setCategories(data)
-      }
-      getCategory()
-    },[])
-    const getSubCategories = (id) => setSubCategories(categories.find(item => item.id == id))
+  const getSubCategories = (id) => setSubCategories(data.find(item => item.id == id))
   return (
     <div className={`${statue && "block"} px-3 py-5 duration-600 bg-white fixed  w-full h-full ${statue ? 'left-0' : 'left-[-1000px]'} lg:hidden`}>
         <div className='flex items-center justify-end'> 
@@ -24,7 +16,7 @@ function HamburgerMenu() {
         <nav className="">
             <menu className="">
                 <ul className="flex items-center gap-3 overflow-x-auto">
-                  {categories?.map((item,index) => <li key={index} onClick={() => getSubCategories(item.id)} className="py-1 ml-[2px] text-nowrap mb-1 cursor-pointer rounded-[3px]">{item.name}</li>) }
+                  {data?.map((item,index) => <li key={index} onClick={() => getSubCategories(item.id)} className="py-1 ml-[2px] text-nowrap mb-1 cursor-pointer rounded-[3px]">{item.name}</li>) }
                 </ul>
             </menu> 
             <menu className="pt-1 flex flex-col gap-1">
